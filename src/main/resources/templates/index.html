@@ -6,13 +6,15 @@
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
+
+  <h1>Gestionar Sucursales</h1>
   <p>Ver todas las sucursales <a href="/sucursales">Aquí</a></p>
 
   <h2>Ver una sucursal por ID</h2>
   <input type="number" id="sucursalId" placeholder="Introduce el ID de la sucursal">
   <button id="verSucursalBtn">Ver Sucursal</button>
 
-  <h1>Añadir Sucursal</h1>
+  <h2>Añadir Sucursal</h2>
 
   <form id="formNuevaSucursal">
     <label for="nombre">Nombre de la Sucursal:</label>
@@ -27,7 +29,7 @@
     <button type="button" id="agregarSucursalBtn">Añadir Sucursal</button>
   </form>
 
-  <h1>Modificar Sucursal</h1>
+  <h2>Modificar Sucursal</h2>
 
 
   <form id="formModificarSucursal">
@@ -58,14 +60,14 @@
 
 
         $(document).ready(function() {
-       // Cuando el botón sea clickeado
+
        $('#verSucursalBtn').click(function() {
-         // Obtener el valor del input
+
          var sucursalId = $('#sucursalId').val();
 
-         // Validar si se ingresó un ID
+
          if (sucursalId) {
-           // Redirigir a la URL con el ID introducido
+
            window.location.href = 'http://localhost:8080/sucursales/' + sucursalId;
          } else {
            alert('Por favor ingresa un ID válido.');
