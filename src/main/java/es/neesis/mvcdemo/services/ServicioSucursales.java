@@ -27,7 +27,7 @@ public class ServicioSucursales {
     }
 
     public Sucursales crearSucursal(Sucursales sucursal) {
-        sucursal.setId((long) (sucursales.size() + 1)); // Generar un id simple
+        sucursal.setId((long) (sucursales.size() + 1));
         sucursales.add(sucursal);
         return sucursal;
     }
