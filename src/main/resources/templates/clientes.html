@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Clientes</title>
+</head>
+<body>
+<h1>Clientes</h1>
+
+<p th:if="${notificacion}" th:text="${notificacion}"></p>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>DNI</th>
+        <th>Nombre</th>
+        <th>Dirección</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Sucursal</th>
+        <th>Acciones</th>
+    </tr>
+    <tr th:each="cliente : ${listadoClientes}">
+        <td th:text="${cliente.idCliente}"></td>
+        <td th:text="${cliente.DNI}"></td>
+        <td th:text="${cliente.nombreCliente}"></td>
+        <td th:text="${cliente.direccionPostal}"></td>
+        <td th:text="${cliente.email}"></td>
+        <td th:text="${cliente.telefono}"></td>
+        <td th:text="${cliente.sucursal}"></td>
+        <td>
+            <a th:href="@{/clientes/{id}(id=${cliente.idCliente})}">Detalle</a>
+            <a th:href="@{/clientes/editar/{id}(id=${cliente.idCliente})}">Editar</a>
+            <a th:href="@{/clientes/eliminar/{id}(id=${cliente.idCliente})}">Eliminar</a>
+        </td>
+    </tr>
+</table>
+
+<h2>Agregar Cliente</h2>
+<form action="/clientes" method="post">
+    <input type="text" name="dni" placeholder="DNI" required>
+    <input type="text" name="nombre" placeholder="Nombre" required>
+    <input type="text" name="direccionPostal" placeholder="Dirección" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="text" name="telefono" placeholder="Teléfono" required>
+    <input type="text" name="sucursalPrincipal" placeholder="Sucursal" required>
+    <button type="submit">Agregar</button>
+</form>
+</body>
+</html>
