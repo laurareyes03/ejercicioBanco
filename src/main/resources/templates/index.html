@@ -18,8 +18,39 @@
             window.location.href = '/test?name=' + nombre + '&surname=apellido';
           });
         });
+
+      $(document).ready(function() {
+          $("#verSucursal").click(function() {
+            const id = $("#id").val();
+            window.location.href = '/sucursales/' + id;
+          });
+        });
+
+      $(document).ready(function() {
+      // Cuando el botón sea clickeado
+      $('#verSucursalBtn').click(function() {
+        // Obtener el valor del input
+        var sucursalId = $('#sucursalId').val();
+
+        // Validar si se ingresó un ID
+        if (sucursalId) {
+          // Redirigir a la URL con el ID introducido
+          window.location.href = 'http://localhost:8080/sucursales/' + sucursalId;
+        } else {
+          alert('Por favor ingresa un ID válido.');
+        }
+      });
+    });
     </script>
-  <p>Mostrar lista sucursales <a href="/sucursales">Aquí</a></p>
+
+  <h2>Ver una sucursal por ID</h2>
+  <input type="number" id="sucursalId" placeholder="Introduce el ID de la sucursal">
+  <button id="verSucursalBtn">Ver Sucursal</button>
+
+  <p>Ver todas las sucursales <a href="/sucursales">Aquí</a></p>
+
+
+
 </body>
 
 
