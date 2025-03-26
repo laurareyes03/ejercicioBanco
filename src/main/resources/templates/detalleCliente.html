@@ -15,14 +15,14 @@
 <p>Sucursal Principal: <span th:text="${cliente.sucursal.nombre}"></span></p>
 
 <h2>Cuentas asociadas:</h2>
-<table>
+<table border="1">
     <tr>
         <th>Numero</th>
         <th>Sucursal</th>
         <th>Balance</th>
     </tr>
     <tr th:each="cuenta : ${cuentas}">
-        <td th:text="${cuenta.numero}"></td>
+        <td th:text="${cuenta.numeroCuenta}"></td>
         <td th:text="${cuenta.sucursal}"></td>
         <td th:text="${cuenta.balance}"></td>
     </tr>

@@ -1,7 +1,9 @@
 package es.neesis.mvcdemo.controller;
 
 import es.neesis.mvcdemo.models.Clientes;
+import es.neesis.mvcdemo.models.Cuentas;
 import es.neesis.mvcdemo.services.ServicioClientes;
+import es.neesis.mvcdemo.services.ServicioCuentas;
 import es.neesis.mvcdemo.services.ServicioSucursales;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ClientesController {
@@ -22,6 +25,9 @@ public class ClientesController {
 
     @Autowired
     ServicioSucursales servicioSucursales;
+
+    @Autowired
+    ServicioCuentas servicioCuentas;
 
     @GetMapping("/clientes")
     public String getAlumnos(Model model) {
@@ -80,11 +86,11 @@ public class ClientesController {
     public String detalleCliente(@PathVariable Integer id, Model model) {
         // Obtener cliente por ID (y las cuentas asociadas)
         Clientes cliente = servicioClientes.buscarPorId(id);
-
+        List<Cuentas> cuentas = servicioCuentas.listarCuentas().stream().filter(c -> c.getIdUsuario().equals(cliente.getIdCliente())).collect(Collectors.toList());
         if (cliente != null) {
             // Añadir el cliente y sus cuentas al modelo
             model.addAttribute("cliente", cliente);
-            model.addAttribute("cuentas", null);
+            model.addAttribute("cuentas", cuentas);
         }
 
         return "detalleCliente";
