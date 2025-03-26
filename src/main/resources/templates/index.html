@@ -188,6 +188,73 @@
 
 
 </body>
+<h1>Cuentas Bancarias</h1>
 
+<h2>Agregar Cuenta</h2>
+<form id="formCuenta">
+  <input type="text" id="numero" placeholder="Número de Cuenta" required>
+  <input type="text" id="sucursal" placeholder="Sucursal" required>
+  <input type="text" id="idUsuario" placeholder="ID Usuario" required>
+  <input type="number" id="balance" placeholder="Balance" required>
+  <button type="submit">Agregar</button>
+</form>
+
+<h2>Lista de Cuentas</h2>
+<ul id="listaCuentas"></ul>
+
+<script>
+  const API_URL = "http://localhost:8080/cuentas";
+
+  function cargarCuentas() {
+      fetch(API_URL)
+          .then(response => response.json())
+          .then(data => {
+              const lista = document.getElementById("listaCuentas");
+              lista.innerHTML = "";
+              data.forEach(cuenta => {
+                  lista.innerHTML += `<li>
+                      ${cuenta.numero} - ${cuenta.sucursal} - Balance: ${cuenta.balance}
+                      <button onclick="verDetalle('${cuenta.numero}')">Ver</button>
+                      <button onclick="eliminarCuenta('${cuenta.numero}')">Eliminar</button>
+                  </li>`;
+              });
+          });
+  }
+
+  function agregarCuenta(event) {
+      event.preventDefault();
+      const cuenta = {
+          numero: document.getElementById("numero").value,
+          sucursal: document.getElementById("sucursal").value,
+          idUsuario: document.getElementById("idUsuario").value,
+          balance: document.getElementById("balance").value
+      };
+
+      fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(cuenta)
+      }).then(() => {
+          cargarCuentas();
+          document.getElementById("formCuenta").reset();
+      });
+  }
+
+  function verDetalle(numero) {
+      fetch(`${API_URL}/${numero}`)
+          .then(response => response.json())
+          .then(data => alert(`Cuenta: ${data.numero}\nBalance: ${data.balance}`));
+  }
+
+  function eliminarCuenta(numero) {
+      fetch(`${API_URL}/${numero}`, { method: "DELETE" })
+          .then(() => cargarCuentas());
+  }
+
+  document.getElementById("formCuenta").addEventListener("submit", agregarCuenta);
+  cargarCuentas();
+</script>
+</body>
+</html>
 
 </html>
