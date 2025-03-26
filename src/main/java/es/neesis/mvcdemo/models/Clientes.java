@@ -10,9 +10,9 @@ public class Clientes {
 	private String direccionPostal;
 	private String email;
 	private String telefono;
-	private String sucursal;
+	private Sucursales sucursal;
 
-	public Clientes(Integer idCliente, String DNI, String nombreCliente, String direccionPostal, String email, String telefono, String sucursal) {
+	public Clientes(Integer idCliente, String DNI, String nombreCliente, String direccionPostal, String email, String telefono, Sucursales sucursal) {
 		this.idCliente = idCliente;
 		this.DNI = DNI;
 		this.nombreCliente = nombreCliente;
@@ -70,11 +70,11 @@ public class Clientes {
 		this.telefono = telefono;
 	}
 
-	public String getSucursal() {
+	public Sucursales getSucursal() {
 		return sucursal;
 	}
 
-	public void setSucursal(String sucursal) {
+	public void setSucursal(Sucursales sucursal) {
 		this.sucursal = sucursal;
 	}
 }

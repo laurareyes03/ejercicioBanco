@@ -27,7 +27,7 @@
         <td th:text="${cliente.direccionPostal}"></td>
         <td th:text="${cliente.email}"></td>
         <td th:text="${cliente.telefono}"></td>
-        <td th:text="${cliente.sucursal}"></td>
+        <td th:text="${cliente.sucursal.nombre}"></td>
         <td>
             <a th:href="@{/clientes/{id}(id=${cliente.idCliente})}">Detalle</a>
             <a th:href="@{/clientes/editar/{id}(id=${cliente.idCliente})}">Editar</a>
@@ -43,7 +43,13 @@
     <input type="text" name="direccionPostal" placeholder="Dirección" required>
     <input type="email" name="email" placeholder="Email" required>
     <input type="text" name="telefono" placeholder="Teléfono" required>
-    <input type="text" name="sucursalPrincipal" placeholder="Sucursal" required>
+    <select name="sucursalPrincipal" required>
+        <option value="" selected disabled>Selecciona una sucursal</option>
+        <option th:each="sucursal : ${listadoSucursales}"
+                th:value="${sucursal.nombre}"
+                th:text="${sucursal.nombre}">
+        </option>
+    </select>
     <button type="submit">Agregar</button>
 </form>
 </body>

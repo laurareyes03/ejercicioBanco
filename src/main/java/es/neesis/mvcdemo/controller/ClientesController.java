@@ -2,6 +2,7 @@ package es.neesis.mvcdemo.controller;
 
 import es.neesis.mvcdemo.models.Clientes;
 import es.neesis.mvcdemo.services.ServicioClientes;
+import es.neesis.mvcdemo.services.ServicioSucursales;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -18,10 +20,14 @@ public class ClientesController {
     @Autowired
     ServicioClientes servicioClientes;
 
+    @Autowired
+    ServicioSucursales servicioSucursales;
+
     @GetMapping("/clientes")
     public String getAlumnos(Model model) {
         List<Clientes> clientes = servicioClientes.listadoClientes();
         model.addAttribute("listadoClientes", clientes);
+        model.addAttribute("listadoSucursales", servicioSucursales.listarSucursales());
         return "clientes";
     }
 
@@ -31,13 +37,12 @@ public class ClientesController {
                                  @RequestParam("direccionPostal") String direccionPostal,
                                  @RequestParam("email") String email,
                                  @RequestParam("telefono") String telefono,
-                                 @RequestParam("sucursalPrincipal") String sucursalPrincipal,
+                                 @RequestParam("sucursalPrincipal") String sucursalPrincipal, RedirectAttributes redirectAttributes,
                                  Model model) {
         servicioClientes.addCliente(dni, nombre, direccionPostal, email, telefono, sucursalPrincipal);
-        model.addAttribute("notificacion", "Cliente " + nombre + " agregado correctamente");
+        redirectAttributes.addFlashAttribute("notificacion", "Cliente " + nombre + " agregado correctamente");
         model.addAttribute("listadoClientes", servicioClientes.listadoClientes());
-
-        return "clientes";
+        return "redirect:/clientes";
     }
 
 
@@ -52,6 +57,7 @@ public class ClientesController {
     public String editarCliente(@PathVariable int id, Model model) {
         Clientes cliente = servicioClientes.buscarPorId(id);
         model.addAttribute("cliente", cliente);
+        model.addAttribute("listadoSucursales", servicioSucursales.listarSucursales());
         return "editarCliente";
     }
 
@@ -59,13 +65,13 @@ public class ClientesController {
     public String actualizarCliente(@PathVariable int id, @RequestParam String dni,
                                     @RequestParam String nombre, @RequestParam String direccionPostal,
                                     @RequestParam String email, @RequestParam String telefono,
-                                    @RequestParam String sucursalPrincipal, Model model) {
+                                    @RequestParam String sucursalPrincipal, RedirectAttributes redirectAttributes, Model model) {
         boolean actualizado = servicioClientes.actualizarCliente(id, dni, nombre, direccionPostal, email, telefono, sucursalPrincipal);
 
         if (actualizado) {
-            model.addAttribute("notificacion", "Cliente actualizado correctamente");
+            redirectAttributes.addFlashAttribute("notificacion", "Cliente actualizado correctamente");
         } else {
-            model.addAttribute("notificacion", "Error al actualizar el cliente");
+            redirectAttributes.addFlashAttribute("notificacion", "Error al actualizar el cliente");
         }
         return "redirect:/clientes";
     }

@@ -47,4 +47,8 @@ public class ServicioSucursales {
     public boolean eliminarSucursal(Long id) {
         return sucursales.removeIf(sucursal -> sucursal.getId().equals(id));
     }
+
+    public Optional<Sucursales> obtenerSucursalPorNombre(String nombre) {
+        return sucursales.stream().filter(s -> s.getNombre().equals(nombre)).findFirst();
+    }
 }

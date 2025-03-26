@@ -26,7 +26,14 @@
     <input type="text" name="telefono" th:value="${cliente.telefono}" required>
 
     <label for="sucursalPrincipal">Sucursal:</label>
-    <input type="text" name="sucursalPrincipal" th:value="${cliente.sucursal}" required>
+    <select name="sucursalPrincipal" required>
+        <option value="" disabled>Selecciona una sucursal</option>
+        <option th:each="sucursal : ${listadoSucursales}"
+                th:value="${sucursal.nombre}"
+                th:text="${sucursal.nombre}"
+                th:selected="${sucursal.nombre == cliente.sucursal.nombre}">
+        </option>
+    </select>
 
     <button type="submit">Guardar Cambios</button>
 </form>
