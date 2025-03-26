@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Cliente</title>
+</head>
+<body>
+<h1>Editar Cliente</h1>
+
+<form action="#" th:action="@{/clientes/editar/{id}(id=${cliente.idCliente})}" method="post">
+    <input type="hidden" name="idCliente" th:value="${cliente.idCliente}"/>
+
+    <label for="dni">DNI:</label>
+    <input type="text" name="dni" th:value="${cliente.DNI}" required>
+
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" th:value="${cliente.nombreCliente}" required>
+
+    <label for="direccionPostal">Dirección:</label>
+    <input type="text" name="direccionPostal" th:value="${cliente.direccionPostal}" required>
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" th:value="${cliente.email}" required>
+
+    <label for="telefono">Teléfono:</label>
+    <input type="text" name="telefono" th:value="${cliente.telefono}" required>
+
+    <label for="sucursalPrincipal">Sucursal:</label>
+    <input type="text" name="sucursalPrincipal" th:value="${cliente.sucursal}" required>
+
+    <button type="submit">Guardar Cambios</button>
+</form>
+
+</body>
+</html>

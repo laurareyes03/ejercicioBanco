@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Cliente</title>
+</head>
+<body>
+<h1>Detalle del Cliente</h1>
+<p>ID: <span th:text="${cliente.idCliente}"></span></p>
+<p>DNI: <span th:text="${cliente.DNI}"></span></p>
+<p>Nombre: <span th:text="${cliente.nombreCliente}"></span></p>
+<p>Email: <span th:text="${cliente.email}"></span></p>
+<p>Dirección Postal: <span th:text="${cliente.direccionPostal}"></span></p>
+<p>Teléfono: <span th:text="${cliente.telefono}"></span></p>
+<p>Sucursal Principal: <span th:text="${cliente.sucursal}"></span></p>
+
+<h2>Cuentas asociadas:</h2>
+<table>
+    <tr>
+        <th>Numero</th>
+        <th>Sucursal</th>
+        <th>Balance</th>
+    </tr>
+    <tr th:each="cuenta : ${cuentas}">
+        <td th:text="${cuenta.numero}"></td>
+        <td th:text="${cuenta.sucursal}"></td>
+        <td th:text="${cuenta.balance}"></td>
+    </tr>
+</table>
+</body>
+</html>
