@@ -38,11 +38,13 @@
 
 <h2>Agregar Cliente</h2>
 <form action="/clientes" method="post">
-    <input type="text" name="dni" placeholder="DNI" required>
+    <input type="text" name="dni" placeholder="DNI" required pattern="^[0-9]{8}[A-Za-z]$"
+           title="El DNI debe tener 8 dígitos seguidos de una letra">
     <input type="text" name="nombre" placeholder="Nombre" required>
     <input type="text" name="direccionPostal" placeholder="Dirección" required>
     <input type="email" name="email" placeholder="Email" required>
-    <input type="text" name="telefono" placeholder="Teléfono" required>
+    <input type="text" name="telefono" placeholder="Teléfono" required pattern="^[0-9]+$"
+           title="El teléfono debe contener solo números." >
     <select name="sucursalPrincipal" required>
         <option value="" selected disabled>Selecciona una sucursal</option>
         <option th:each="sucursal : ${listadoSucursales}"
